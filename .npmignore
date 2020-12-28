@@ -1,3 +1,4 @@
 *.html
 snowpack.config.js
 yarn.lock
+.github
