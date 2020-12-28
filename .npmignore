@@ -1,0 +1,3 @@
+*.html
+snowpack.config.js
+yarn.lock

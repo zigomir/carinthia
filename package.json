@@ -1,8 +1,11 @@
 {
   "name": "carinthia",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "follow links, morph the dom",
   "exports": "./dist/carinthia.js",
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "dev": "snowpack dev",
     "build": "microbundle --entry main.js --format es"
