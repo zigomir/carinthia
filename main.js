@@ -23,8 +23,14 @@ const handleLink = (e) => {
   window.history.pushState({}, '', link)
 }
 
+const isLocalLink = (element) => window.location.hostname === element.hostname
+
 const addLinkClickListeners = () =>
-  document.querySelectorAll('a').forEach((link) => link.addEventListener('click', handleLink))
+  document.querySelectorAll('a').forEach((link) => {
+    if (isLocalLink(link)) {
+      link.addEventListener('click', handleLink)
+    }
+  })
 
 document.addEventListener('DOMContentLoaded', () => {
   addLinkClickListeners()
