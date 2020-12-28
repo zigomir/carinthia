@@ -8,6 +8,7 @@ const navigate = async (link) => {
 
   morphdom(document.body, responseDoc.body)
   document.title = responseDoc.title
+  attachListeners()
 }
 
 const handleLink = (e) => {
@@ -16,5 +17,11 @@ const handleLink = (e) => {
   window.history.pushState({}, '', e.target.href)
 }
 
-document.querySelectorAll('a').forEach((link) => link.addEventListener('click', handleLink))
-window.onpopstate = (event) => navigate(event.path[0]?.location?.href)
+const attachListeners = () => {
+  document.querySelectorAll('a').forEach((link) => link.addEventListener('click', handleLink))
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  attachListeners()
+  window.onpopstate = (event) => navigate(event.path[0]?.location?.href)
+})
