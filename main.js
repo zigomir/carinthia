@@ -9,7 +9,7 @@ const navigate = async (link) => {
 
     morphdom(document.body, responseDoc.body)
     document.title = responseDoc.title
-    attachListeners()
+    addLinkClickListeners()
   } else {
     // "classic" link follow
     location.replace(link)
@@ -22,11 +22,10 @@ const handleLink = (e) => {
   window.history.pushState({}, '', e.target.href)
 }
 
-const attachListeners = () => {
+const addLinkClickListeners = () =>
   document.querySelectorAll('a').forEach((link) => link.addEventListener('click', handleLink))
-}
 
 document.addEventListener('DOMContentLoaded', () => {
-  attachListeners()
+  addLinkClickListeners()
   window.onpopstate = (event) => navigate(event.path[0]?.location?.href)
 })
