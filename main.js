@@ -1,14 +1,19 @@
 import morphdom from 'morphdom'
+const parser = new DOMParser()
 
 const navigate = async (link) => {
-  const resp = await fetch(link)
-  const body = await resp.text()
-  const parser = new DOMParser()
-  const responseDoc = parser.parseFromString(body, 'text/html')
+  const response = await fetch(link)
+  if (response.ok) {
+    const responseText = await response.text()
+    const responseDoc = parser.parseFromString(responseText, 'text/html')
 
-  morphdom(document.body, responseDoc.body)
-  document.title = responseDoc.title
-  attachListeners()
+    morphdom(document.body, responseDoc.body)
+    document.title = responseDoc.title
+    attachListeners()
+  } else {
+    // "classic" link follow
+    location.replace(link)
+  }
 }
 
 const handleLink = (e) => {
