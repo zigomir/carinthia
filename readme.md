@@ -13,4 +13,5 @@
 
 ## todo
 
+- [ ] handle / follow redirects
 - [ ] try out how this plays with Vue (or other) client side libraries
