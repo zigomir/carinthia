@@ -8,7 +8,7 @@
     "build": "microbundle --entry main.js --format es"
   },
   "keywords": [
-    "TODO"
+    "turbolinks", "morphdom"
   ],
   "author": "ziga.dev",
   "license": "MIT",
