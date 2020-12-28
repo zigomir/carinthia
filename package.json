@@ -1,0 +1,20 @@
+{
+  "name": "carinthia",
+  "version": "0.1.0",
+  "description": "follow links, morph the dom",
+  "exports": "./dist/carinthia.js",
+  "scripts": {
+    "dev": "snowpack dev",
+    "build": "microbundle --entry main.js --format es"
+  },
+  "keywords": [
+    "TODO"
+  ],
+  "author": "ziga.dev",
+  "license": "MIT",
+  "devDependencies": {
+    "microbundle": "^0.13.0",
+    "morphdom": "^2.6.1",
+    "snowpack": "^3.0.0-rc.2"
+  }
+}
