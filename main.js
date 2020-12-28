@@ -18,8 +18,9 @@ const navigate = async (link) => {
 
 const handleLink = (e) => {
   e.preventDefault()
-  navigate(e.target.href)
-  window.history.pushState({}, '', e.target.href)
+  const link = e.currentTarget.href
+  navigate(link)
+  window.history.pushState({}, '', link)
 }
 
 const addLinkClickListeners = () =>
