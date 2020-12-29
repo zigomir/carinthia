@@ -1,6 +1,6 @@
 {
   "name": "carinthia",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "follow links, morph the dom",
   "exports": "./dist/carinthia.js",
   "files": [
