@@ -15,7 +15,15 @@
 
 - currently this only works for links, `a` tag with valid `href` attribute
 
+## how to use it with SPA frameworks like vue
+
+```js
+document.addEventListener('carinthia:load', () => {
+  createApp(App).mount('#app')
+})
+```
+
 ## todo
 
-- [ ] try out how this plays with Vue (or other) client side libraries
+- [x] try out how this plays with Vue (or other) client side libraries
 - [x] don't hijack "navigate" for non-local links; see https://github.com/bigskysoftware/htmx/blob/master/dist/htmx.js#L847-L851

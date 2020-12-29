@@ -10,6 +10,7 @@ const navigate = async (link) => {
     morphdom(document.body, responseDoc.body)
     document.title = responseDoc.title
     addLinkClickListeners()
+    document.dispatchEvent(makeEvent('carinthia:load'))
   } else {
     // "classic" link follow
     location.replace(link)
@@ -32,7 +33,11 @@ const addLinkClickListeners = () =>
     }
   })
 
+const makeEvent = (eventName, detail = undefined) =>
+  new CustomEvent(eventName, { bubbles: true, cancelable: true, detail })
+
 document.addEventListener('DOMContentLoaded', () => {
   addLinkClickListeners()
+  document.dispatchEvent(makeEvent('carinthia:load'))
   window.onpopstate = (event) => navigate(event.path[0]?.location?.href)
 })

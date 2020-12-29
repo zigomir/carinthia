@@ -2,3 +2,4 @@
 snowpack.config.js
 yarn.lock
 .github
+examples
