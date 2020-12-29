@@ -23,6 +23,8 @@ document.addEventListener('carinthia:load', () => {
 })
 ```
 
+- ensure Vue app bundle is present on all pages, or else it won't work if coming from a page that doesn't include it
+
 ## todo
 
 - [x] try out how this plays with Vue (or other) client side libraries
