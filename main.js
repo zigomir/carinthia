@@ -45,9 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const observer = new MutationObserver((mutationsList, observer) => {
     for (const mutation of mutationsList) {
       for (const addedNode of mutation.addedNodes) {
-        if (addedNode.querySelectorAll) {
-          addLinkClickListeners(addedNode.querySelectorAll(LINK_SELECTOR))
-        }
+        addLinkClickListeners(addedNode.parentNode.querySelectorAll(LINK_SELECTOR))
       }
     }
   })
