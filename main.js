@@ -13,6 +13,7 @@ const navigate = async (link) => {
     document.title = responseDoc.title
     addLinkClickListeners(document.querySelectorAll(LINK_SELECTOR))
     document.dispatchEvent(makeEvent('carinthia:load'))
+    window.history.pushState({}, '', link)
   } else {
     // "classic" link follow
     location.replace(link)
@@ -21,9 +22,7 @@ const navigate = async (link) => {
 
 const handleLink = (e) => {
   e.preventDefault()
-  const link = e.currentTarget.href
-  navigate(link)
-  window.history.pushState({}, '', link)
+  navigate(e.currentTarget.href)
 }
 
 const isLocalLink = (element) => window.location.hostname === element.hostname
