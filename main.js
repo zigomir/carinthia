@@ -42,7 +42,6 @@ const formSubmit = async (formElement) => {
     body: data,
   })
 
-  if (response.ok) {
     const responseText = await response.text()
     const responseDoc = parser.parseFromString(responseText, 'text/html')
 
@@ -51,6 +50,8 @@ const formSubmit = async (formElement) => {
     document.title = responseDoc.title
     attachLinkClickListeners()
     document.dispatchEvent(makeEvent('carinthia:load'))
+
+  if (response.redirected) {
     window.history.pushState({}, '', response.url)
   }
 }
