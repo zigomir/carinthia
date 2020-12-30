@@ -2,7 +2,7 @@ import morphdom from 'morphdom'
 
 const parser = new DOMParser()
 const LINK_SELECTOR = 'a[href]'
-const FORM_SELECTOR = 'form[action]'
+const FORM_SELECTOR = 'form[x-carinthia-enhance]' // forms are trickier and shouldn't be enhanced by default
 
 const navigate = async (link) => {
   const response = await fetch(link)
@@ -42,14 +42,14 @@ const formSubmit = async (formElement) => {
     body: data,
   })
 
-    const responseText = await response.text()
-    const responseDoc = parser.parseFromString(responseText, 'text/html')
+  const responseText = await response.text()
+  const responseDoc = parser.parseFromString(responseText, 'text/html')
 
-    document.dispatchEvent(makeEvent('carinthia:unload'))
-    morphdom(document.body, responseDoc.body)
-    document.title = responseDoc.title
-    attachLinkClickListeners()
-    document.dispatchEvent(makeEvent('carinthia:load'))
+  document.dispatchEvent(makeEvent('carinthia:unload'))
+  morphdom(document.body, responseDoc.body)
+  document.title = responseDoc.title
+  attachLinkClickListeners()
+  document.dispatchEvent(makeEvent('carinthia:load'))
 
   if (response.redirected) {
     window.history.pushState({}, '', response.url)
