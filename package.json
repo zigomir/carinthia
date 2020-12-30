@@ -11,7 +11,8 @@
     "build": "microbundle --entry main.js --format es"
   },
   "keywords": [
-    "turbolinks", "morphdom"
+    "turbolinks",
+    "morphdom"
   ],
   "author": "ziga.dev",
   "license": "MIT",
