@@ -1,6 +1,6 @@
 import morphdom from 'morphdom'
-const parser = new DOMParser()
 
+const parser = new DOMParser()
 const LINK_SELECTOR = 'a[href]'
 
 const navigate = async (link) => {
@@ -11,7 +11,7 @@ const navigate = async (link) => {
 
     morphdom(document.body, responseDoc.body)
     document.title = responseDoc.title
-    addLinkClickListeners(document.querySelectorAll(LINK_SELECTOR))
+    attachLinkClickListeners()
     document.dispatchEvent(makeEvent('carinthia:load'))
     window.history.pushState({}, '', link)
   } else {
@@ -27,20 +27,15 @@ const handleLink = (e) => {
 
 const isLocalLink = (element) => window.location.hostname === element.hostname
 
-const addLinkClickListeners = (elements) =>
-  elements.forEach((link) => {
-    if (isLocalLink(link)) {
-      link.addEventListener('click', handleLink)
-    }
-  })
+const attachLinkClickListeners = () => {
+  const addLinkClickListeners = (elements) =>
+    elements.forEach((link) => {
+      if (isLocalLink(link)) {
+        link.addEventListener('click', handleLink)
+      }
+    })
 
-const makeEvent = (eventName, detail = undefined) =>
-  new CustomEvent(eventName, { bubbles: true, cancelable: true, detail })
-
-document.addEventListener('DOMContentLoaded', () => {
   addLinkClickListeners(document.querySelectorAll(LINK_SELECTOR))
-  window.onpopstate = (event) => navigate(event.path[0]?.location?.href)
-
   const targetNodes = document.querySelectorAll('[x-carinthia-enhance]')
   const observer = new MutationObserver((mutationsList, observer) => {
     for (const mutation of mutationsList) {
@@ -53,6 +48,13 @@ document.addEventListener('DOMContentLoaded', () => {
   for (const targetNode of targetNodes) {
     observer.observe(targetNode, { attributes: false, childList: true, subtree: false })
   }
+}
 
+const makeEvent = (eventName, detail = undefined) =>
+  new CustomEvent(eventName, { bubbles: true, cancelable: true, detail })
+
+document.addEventListener('DOMContentLoaded', () => {
+  attachLinkClickListeners()
+  window.onpopstate = (event) => navigate(event.path[0]?.location?.href)
   document.dispatchEvent(makeEvent('carinthia:load'))
 })
