@@ -1,7 +1,7 @@
 import morphdom from 'morphdom'
 
 const parser = new DOMParser()
-const LINK_SELECTOR = 'a[href]'
+const LINK_SELECTOR = 'a[href]:not([href^="#"])' // skip links that start with hash
 const FORM_SELECTOR = 'form[x-carinthia-enhance]' // forms are trickier and shouldn't be enhanced by default
 
 const navigate = async (link) => {
@@ -76,19 +76,18 @@ const attachLinkClickListeners = () => {
   addLinkClickListeners(document.querySelectorAll(LINK_SELECTOR))
   addFormSubmitListeners(document.querySelectorAll(FORM_SELECTOR))
 
-  const targetNodes = document.querySelectorAll('[x-carinthia-enhance]')
   const observer = new MutationObserver((mutationsList, observer) => {
     for (const mutation of mutationsList) {
       for (const addedNode of mutation.addedNodes) {
-        addLinkClickListeners(addedNode.parentNode.querySelectorAll(LINK_SELECTOR))
-        addFormSubmitListeners(addedNode.parentNode.querySelectorAll(FORM_SELECTOR))
+        if (addedNode.nodeType == addedNode.ELEMENT_NODE) {
+          addLinkClickListeners(addedNode.querySelectorAll(LINK_SELECTOR))
+          addFormSubmitListeners(addedNode.querySelectorAll(FORM_SELECTOR))
+        }
       }
     }
   })
 
-  for (const targetNode of targetNodes) {
-    observer.observe(targetNode, { attributes: false, childList: true, subtree: false })
-  }
+  observer.observe(document.body, { attributes: false, childList: true, subtree: true })
 }
 
 const makeEvent = (eventName, detail = undefined) =>
